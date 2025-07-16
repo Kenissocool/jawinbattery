@@ -40,8 +40,9 @@ BatteryMsg* data = BMS_GetData();        // Access the latest battery data
 
 ## API Reference
 
-### `void BMS_Update(FDCAN_HandleTypeDef *hfdcan);`
-
+```c
+void BMS_Update(FDCAN_HandleTypeDef *hfdcan);
+```
 Polls and processes a CAN message from the battery (non-blocking).
 
 - **Parameters**:
@@ -50,9 +51,9 @@ Polls and processes a CAN message from the battery (non-blocking).
   - Processes one message from FIFO0 (if available)
   - Updates internal battery data
   - Updates `last_update_ms` with current time
-
----
-### `BatteryMsg Struct`
+```c
+BatteryMsg Struct`
+```
 This structure holds the decoded battery data parsed from CAN messages:
 
 ```c
@@ -65,17 +66,17 @@ typedef struct {
     int32_t current;                // Calculated actual current (signed)
 } BatteryMsg;
 ```
-
-### `BatteryMsg* BMS_GetData(void);`
-
+```c
+BatteryMsg* BMS_GetData(void);
+```
 Returns a pointer to the most recent battery data.
 
 - **Returns**: `BatteryMsg*` — pointer to internal struct with latest values
 
----
 
-### `extern uint32_t last_update_ms;`
-
+```c
+extern uint32_t last_update_ms;
+```
 Global variable tracking the time (in milliseconds) when the last CAN message was processed.
 
 ---
