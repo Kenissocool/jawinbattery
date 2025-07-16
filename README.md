@@ -1,7 +1,7 @@
 # STM32 BMS Library for Jawin 30000mAh 18S Battery
 
 <span style="font-size:smaller;">
-This library allows an STM32 microcontroller to interface with a <strong>Jawin 30000mAh 18S smart battery</strong> over <strong>CAN bus (1 Mbps)</strong>. It reads and decodes battery metrics such as voltage, current, temperature, SOC (state of charge), and per-cell voltages. This example is tested with stm32 g474 can node so i use FDCAN as CAN2.0B for receiving data.
+  This library allows an STM32 microcontroller to interface with a <strong>Jawin 30000mAh 18S smart battery</strong> over <strong>CAN bus (1 Mbps)</strong>. It reads and decodes battery metrics such as voltage, current, temperature, SOC (state of charge), and per-cell voltages. This example is tested with stm32 g474 can node so i use FDCAN as CAN2.0B for receiving data.
 </span>
 
 ## Table of Contents
@@ -17,10 +17,10 @@ This library allows an STM32 microcontroller to interface with a <strong>Jawin 3
 ---
 ## File Structure
 
-| File      | Description                          |
-|-----------|--------------------------------------|
-| `bms.h`   | Header file with API and data struct |
-| `bms.c`   | Source file with CAN parsing logic   |
+  | File      | Description                          |
+  |-----------|--------------------------------------|
+  | `bms.h`   | Header file with API and data struct |
+  | `bms.c`   | Source file with CAN parsing logic   |
 
 ---
 ## How to Use This Library
