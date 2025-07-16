@@ -86,25 +86,38 @@ Each CAN message from the battery includes:
 - **CAN Speed**:1Mbps
 - **Message Type**:Little Endian
 
-|   CAN ID    |       1-2nd byte       |            3-4th byte           |       5-6th byte       |     7-8th byte     |
-|-------------|------------------------|---------------------------------|------------------------|--------------------|
-| 0x002E0951  | Unknown                | Voltage of battery/100          | Current/1000           | Unknown            |
-| 0x002E0942  | Battery Temperature/10 | Always 0x0401                   | Battery Percentage/100 | Always 0           |
-| 0x002E0943  | Always 0               | Amount of cell in battery (18s) | 1st Cell Volatage      | 2nd Cell Volatage  |
-| 0x002E0944  | 3rd Cell Voltage       | 4th Cell Voltage                | 5th Cell Volatage      | 6th Cell Volatage  |
-| 0x002E0945  | 7th Cell Voltage       | 8th Cell Voltage                | 9th Cell Volatge       | 10th Cell Volatage |
-| 0x002E0945  | 11th Cell Voltage      | 12th Cell Voltage               | 13th Cell Volatge      | 14th Cell Volatage |
-| 0x002E0945  | 15th Cell Voltage      | 16th Cell Voltage               | 17th Cell Volatge      | 18th Cell Volatage |
+|   CAN ID    |            1st byte            |             2nd byte            |                 3th byte                  |                  4th byte                  |
+|-------------|--------------------------------|---------------------------------|-------------------------------------------|--------------------------------------------|
+| 0x002E0951  | Unknown Low Byte               | Unknown High Byte               | Voltage of Battery High Byte              | Voltage of Battery High Byte               | Current High Byte | Current Low Byte |Unknow Low Byte           | Unknown High Byte           |
+| 0x002E0942  | Battery Temperature Low Byte   | Battery Temperature High Byte   | Always 0x04                               | Always 0x01                                |Battery Percentage High byte | Battery Percentage Low Byte | Always 0           |
+| 0x002E0943  | Always 0                       | Always 0                        | Amount of cell in battery (18s) High byte | Amount of cell in battery (18s) High byte  | 1st Cell Voltage Low Byte      | 1st Cell Voltage High Byte      | 2nd Cell Voltage High Byte                | 2nd Cell Voltage High Byte                 |
+| 0x002E0944  | 3rd Cell Voltage Low Byte      | 3rd Cell Voltage High Byte      | 4th Cell Voltage High Byte                | 4th Cell Voltage High Byte                 | 5th Cell Volatage      | 6th Cell Volatage  |
+| 0x002E0945  | 7th Cell Voltage Low Byte      | 8th Cell Voltage                | 9th Cell Volatge       | 10th Cell Volatage |
+| 0x002E0945  | 11th Cell Voltage Low Byte     | 12th Cell Voltage               | 13th Cell Volatge      | 14th Cell Volatage |
+| 0x002E0945  | 15th Cell Voltage Low Byte     | 16th Cell Voltage               | 17th Cell Volatge      | 18th Cell Volatage |
 
 
 ###  **Remarks**
 
-- 🔄 **Current** is a **signed** value:  
+- **Volage of Battery** values are raw `uint16_t`:
+  - Divide by **100** to get actual **volts (V)**
+    
+- **Current** is a **signed** value:  
   - Positive → battery is **charging**  
   - Negative → battery is **discharging**
+  - Divide by **1000** to get actual **Ampare (A)**
 
-- 🔋 **Cell Voltage** values are raw `uint16_t`:
-  - Divide by **1000** to get **volts (V)**
+- **Temperature** values are raw `uint16_t`:
+  - Divide by **100** to get actual **celcius (C)**
+
+- **Battery Percentage** values are raw `uint16_t`:
+  - Divide by **100** to get actual **percent (%)**
+  
+- **Cell Voltage** values are raw `uint16_t`:
+  - Divide by **1000** to get actual **volts (V)**
+
+
+
   ---
 
 
