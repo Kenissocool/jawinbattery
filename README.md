@@ -25,9 +25,9 @@ This library allows an STM32 microcontroller to interface with a <strong>Jawin 3
 ---
 ## How to Use This Library
 
-1. **Enable CAN** in STM32CubeMX (1 Mbps)
+1. **Enable FDCAN** in STM32CubeMX (1 Mbps)
 2. **Copy `bms.h` and `bms.c`** into your project
-3. **Initialize and start** CAN in `main.c`
+3. **Initialize and start** FDCAN in `main.c`
 4. Call `BMS_Update()` regularly inside your main loop
 5. Use `BMS_GetData()` to access live battery data
 
@@ -95,7 +95,7 @@ Global variable tracking the time (in milliseconds) when the last CAN message wa
 
 ## Hardware setup
 
-- **MCU**: STM32 with CAN/FDCAN peripheral (e.g., STM32G4)
+- **MCU**: STM32 with FDCAN peripheral (e.g., STM32G4)
 - **Wiring**:
   - CAN High and Low connected to STM32 CAN transceiver
   - Optional 120Ω termination resistor at each CAN end
@@ -124,8 +124,8 @@ Each CAN message from the battery includes:
 
 - **29-bit CAN ID** to identify message type
 - **8-byte data frame** with specific structure depending on ID
-- **CAN Speed**:1Mbps
-- **Message Type**:Little Endian
+- **CAN Speed**: 1Mbps
+- **Message Type**: Little Endian
 
 |   CAN ID    |            1st byte            |             2nd byte            |                 3th byte                  |                  4th byte                  |            5th byte            |            6th byte             |          7th byte         |            8th byte            |
 |-------------|--------------------------------|---------------------------------|-------------------------------------------|--------------------------------------------|--------------------------------|---------------------------------|---------------------------|--------------------------------|
