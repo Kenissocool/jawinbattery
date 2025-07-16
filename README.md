@@ -23,7 +23,7 @@ This library allows an STM32 microcontroller to interface with a <strong>Jawin 3
 ## 🧰 Hardware setup
 
 - **Battery**: Jawin 30000mAh 18S smart battery 
-- **MCU**: STM32 with CAN/FDCAN peripheral (e.g., STM32G4, F103 with MCP2515, etc.)
+- **MCU**: STM32 with CAN/FDCAN peripheral (e.g., STM32G4)
 - **Wiring**:
   - CAN High and Low connected to STM32 CAN transceiver
   - Optional 120Ω termination resistor at each CAN end
