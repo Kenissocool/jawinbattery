@@ -15,7 +15,7 @@ This library allows an STM32 microcontroller to interface with a <strong>Jawin 3
 
 
 ---
-## 📁 File Structure
+## File Structure
 
 | File      | Description                          |
 |-----------|--------------------------------------|
@@ -112,7 +112,7 @@ Each CAN message from the battery includes:
 ---
 
 
-## 🔧 API Reference
+## API Reference
 
 ### `void BMS_Update(FDCAN_HandleTypeDef *hfdcan);`
 
