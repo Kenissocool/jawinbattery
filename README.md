@@ -52,7 +52,7 @@ Polls and processes a CAN message from the battery (non-blocking).
   - Updates `last_update_ms` with current time
 
 ---
-### BatteryMsg Struct
+### `BatteryMsg Struct`
 This structure holds the decoded battery data parsed from CAN messages:
 
 ```c
