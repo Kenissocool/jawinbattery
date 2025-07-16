@@ -4,6 +4,15 @@
 This library allows an STM32 microcontroller to interface with a <strong>Jawin 30000mAh 18S smart battery</strong> over <strong>CAN bus (1 Mbps)</strong>. It reads and decodes battery metrics such as voltage, current, temperature, SOC (state of charge), and per-cell voltages. This example is tested with stm32 g474 can node so i use FDCAN as CAN2.0B for receiving data.
 </span>
 
+## 📚 Table of Contents
+- [📁 File Structure](#file-structure)
+- [📦 Features](#features)
+- [🧰 Hardware Setup](#hardware-setup)
+- [🧰 Battery information](#battery-information)
+- [📊 CAN Data Frame Format & Decoding](#can-data-frame-format--decoding) 
+- [🔧 STM32 Integration Guide](#stm32-integration-guide)
+- [🧪 API Reference](#api-reference)
+
 ---
 ## 📁 File Structure
 
