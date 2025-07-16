@@ -5,13 +5,15 @@ This library allows an STM32 microcontroller to interface with a <strong>Jawin 3
 </span>
 
 ## 📚 Table of Contents
+
 - [📁 File Structure](#file-structure)
 - [📦 Features](#features)
 - [🧰 Hardware Setup](#hardware-setup)
 - [🧰 Battery information](#battery-information)
-- [📊 CAN Data Frame Format & Decoding](#can-data-frame-format--decoding) 
+- [📊 CAN Data Frame Format & Decoding](#can-data-frame-format--decoding)
 - [🔧 STM32 Integration Guide](#stm32-integration-guide)
 - [🧪 API Reference](#api-reference)
+
 
 ---
 ## 📁 File Structure
