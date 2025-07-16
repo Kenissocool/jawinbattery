@@ -91,6 +91,17 @@ Each CAN message from the battery includes:
   - Divide by **1000** to get **volts (V)**
   ---
 
+## ⚙️ STM32 Integration Steps
+
+1. **Enable CAN** in STM32CubeMX (1 Mbps)
+2. **Copy `bms.h` and `bms.c`** into your project
+3. **Initialize and start** CAN in `main.c`
+4. Call `BMS_Update()` regularly inside your main loop
+5. Use `BMS_GetData()` to access live battery data
+
+---
+
+
 ## 🔧 API Reference
 
 ### `void BMS_Update(FDCAN_HandleTypeDef *hfdcan);`
@@ -120,15 +131,7 @@ Global variable tracking the time (in milliseconds) when the last CAN message wa
 
 ---
 
-## ⚙️ STM32 Integration Steps
 
-1. **Enable CAN** in STM32CubeMX (1 Mbps)
-2. **Copy `bms.h` and `bms.c`** into your project
-3. **Initialize and start** CAN in `main.c`
-4. Call `BMS_Update()` regularly inside your main loop
-5. Use `BMS_GetData()` to access live battery data
-
----
 
 
 
