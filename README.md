@@ -31,8 +31,6 @@ This library allows an STM32 microcontroller to interface with a <strong>Jawin 3
 4. Call `BMS_Update()` regularly inside your main loop
 5. Use `BMS_GetData()` to access live battery data
 
-To integrate the BMS library into your STM32 project, simply call the following two functions in your main loop 
-
 ```c
 BMS_Update(&hfdcan1);                    // Update internal battery data from CAN frame
 BatteryMsg* data = BMS_GetData();        // Access the latest battery data
