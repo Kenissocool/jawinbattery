@@ -32,7 +32,7 @@ BMS_Update(&hfdcan1);                    // Update internal battery data from CA
 BatteryMsg* data = BMS_GetData();        // Access the latest battery data
 ```
 
-## 📦 Features
+## Features
 
 - ✅ Compatible with **Jawin 18S CAN battery**
 - ⚡ Reads:
@@ -46,7 +46,7 @@ BatteryMsg* data = BMS_GetData();        // Access the latest battery data
 
 ---
 
-## 🧰 Hardware setup
+## Hardware setup
 
 - **MCU**: STM32 with CAN/FDCAN peripheral (e.g., STM32G4)
 - **Wiring**:
@@ -56,7 +56,7 @@ BatteryMsg* data = BMS_GetData();        // Access the latest battery data
 
 ---
 
-## 🧰 Battery information
+## Battery information
 
 - **Name**: Jawin 30000mAh 18S smart battery 
 - **Protocol**: CAN2.0B
@@ -71,7 +71,7 @@ BatteryMsg* data = BMS_GetData();        // Access the latest battery data
 
 ---
 
-## 📊 CAN Data Frame Format & Decoding
+##  CAN Data Frame Format & Decoding
 
 Each CAN message from the battery includes:
 
@@ -91,7 +91,7 @@ Each CAN message from the battery includes:
 | 0x002E0945  | 15th Cell Voltage      | 16th Cell Voltage               | 17th Cell Volatge      | 18th Cell Volatage |
 
 
-### 📝 **Remarks**
+###  **Remarks**
 
 - 🔄 **Current** is a **signed** value:  
   - Positive → battery is **charging**  
@@ -101,7 +101,7 @@ Each CAN message from the battery includes:
   - Divide by **1000** to get **volts (V)**
   ---
 
-## ⚙️ STM32 Integration Steps
+##  STM32 Integration Steps
 
 1. **Enable CAN** in STM32CubeMX (1 Mbps)
 2. **Copy `bms.h` and `bms.c`** into your project
