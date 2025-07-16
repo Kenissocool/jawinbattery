@@ -52,11 +52,6 @@ Polls and processes a CAN message from the battery (non-blocking).
   - Updates internal battery data
   - Updates `last_update_ms` with current time
 ```c
-BatteryMsg Struct`
-```
-This structure holds the decoded battery data parsed from CAN messages:
-
-```c
 typedef struct {
     uint16_t batterycell[18];       // Voltage of each battery cell (up to 18 cells)
     uint16_t no_of_cell;            // Number of cells in the battery pack
@@ -66,6 +61,9 @@ typedef struct {
     int32_t current;                // Calculated actual current (signed)
 } BatteryMsg;
 ```
+This structure holds the decoded battery data parsed from CAN messages:
+
+
 ```c
 BatteryMsg* BMS_GetData(void);
 ```
