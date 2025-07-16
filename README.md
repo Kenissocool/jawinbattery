@@ -30,6 +30,7 @@ This library allows an STM32 microcontroller to interface with a <strong>Jawin 3
   3. **Initialize and start** FDCAN in `main.c`
   4. Call `BMS_Update()` regularly inside your main loop
   5. Use `BMS_GetData()` to access live battery data
+
 Examples
 ```c
 BMS_Update(&hfdcan1);                    // Update internal battery data from CAN frame
