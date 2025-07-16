@@ -23,7 +23,7 @@ This library allows an STM32 microcontroller to interface with a <strong>Jawin 3
 | `bms.c`   | Source file with CAN parsing logic   |
 
 ---
-## 🚀 How to Use This Library
+## How to Use This Library
 
 1. **Enable CAN** in STM32CubeMX (1 Mbps)
 2. **Copy `bms.h` and `bms.c`** into your project
