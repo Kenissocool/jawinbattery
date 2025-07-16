@@ -114,7 +114,30 @@ Each CAN message from the battery includes:
 | 0x002E0945  | 11th Cell Voltage      | 12th Cell Voltage               | 13th Cell Volatge      | 14th Cell Volatage |
 | 0x002E0945  | 15th Cell Voltage      | 16th Cell Voltage               | 17th Cell Volatge      | 18th Cell Volatage |
 
-**Remark**
-- current value is signed so when battery is charged it is positive and when discharged it is negative.
-- Cell voltage value is divided by 1000 to get its actual value.
----
+
+### 📝 **Remarks**
+
+- 🔄 **Current** is a **signed** value:  
+  - Positive → battery is **charging**  
+  - Negative → battery is **discharging**
+
+- 🔋 **Cell Voltage** values are raw `uint16_t`:
+  - Divide by **1000** to get **volts (V)**
+
+- 🌡️ **Temperature**:
+  - Divide by **10** to get degrees Celsius (°C)
+
+- 📉 **State of Charge (SOC)**:
+  - Divide by **100** to get **%**
+ 
+  ---
+
+## 🚀 How to Use This Library
+
+To integrate the BMS library into your STM32 project, simply call the following two functions in your main loop 
+
+```c
+BMS_Update(&hfdcan1);                    // Update internal battery data from CAN frame
+BatteryMsg* data = BMS_GetData();        // Access the latest battery data
+
+  
