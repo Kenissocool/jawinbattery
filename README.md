@@ -25,6 +25,12 @@ This library allows an STM32 microcontroller to interface with a <strong>Jawin 3
 ---
 ## 🚀 How to Use This Library
 
+1. **Enable CAN** in STM32CubeMX (1 Mbps)
+2. **Copy `bms.h` and `bms.c`** into your project
+3. **Initialize and start** CAN in `main.c`
+4. Call `BMS_Update()` regularly inside your main loop
+5. Use `BMS_GetData()` to access live battery data
+
 To integrate the BMS library into your STM32 project, simply call the following two functions in your main loop 
 
 ```c
@@ -100,16 +106,6 @@ Each CAN message from the battery includes:
 - 🔋 **Cell Voltage** values are raw `uint16_t`:
   - Divide by **1000** to get **volts (V)**
   ---
-
-##  STM32 Integration Steps
-
-1. **Enable CAN** in STM32CubeMX (1 Mbps)
-2. **Copy `bms.h` and `bms.c`** into your project
-3. **Initialize and start** CAN in `main.c`
-4. Call `BMS_Update()` regularly inside your main loop
-5. Use `BMS_GetData()` to access live battery data
-
----
 
 
 ## API Reference
