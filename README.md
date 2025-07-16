@@ -113,6 +113,7 @@ Each CAN message from the battery includes:
 | 0x002E0945  | 7th Cell Voltage       | 8th Cell Voltage                | 9th Cell Volatge       | 10th Cell Volatage |
 | 0x002E0945  | 11th Cell Voltage      | 12th Cell Voltage               | 13th Cell Volatge      | 14th Cell Volatage |
 | 0x002E0945  | 15th Cell Voltage      | 16th Cell Voltage               | 17th Cell Volatge      | 18th Cell Volatage |
+
 **Remark**
 - current value is signed so when battery is charged it is positive and when discharged it is negative.
 - Cell voltage value is divided by 1000 to get its actual value.
