@@ -5,6 +5,22 @@ This library allows an STM32 microcontroller to interface with a <strong>Jawin 3
 </span>
 
 ---
+## 📁 File Structure
+
+| File      | Description                          |
+|-----------|--------------------------------------|
+| `bms.h`   | Header file with API and data struct |
+| `bms.c`   | Source file with CAN parsing logic   |
+
+---
+## 🚀 How to Use This Library
+
+To integrate the BMS library into your STM32 project, simply call the following two functions in your main loop 
+
+```c
+BMS_Update(&hfdcan1);                    // Update internal battery data from CAN frame
+BatteryMsg* data = BMS_GetData();        // Access the latest battery data
+```
 
 ## 📦 Features
 
@@ -22,7 +38,6 @@ This library allows an STM32 microcontroller to interface with a <strong>Jawin 3
 
 ## 🧰 Hardware setup
 
-- **Battery**: Jawin 30000mAh 18S smart battery 
 - **MCU**: STM32 with CAN/FDCAN peripheral (e.g., STM32G4)
 - **Wiring**:
   - CAN High and Low connected to STM32 CAN transceiver
@@ -43,55 +58,6 @@ This library allows an STM32 microcontroller to interface with a <strong>Jawin 3
   - 26AWG Black Wire: GND
   - 26AWG Blue Wire: CANH
   - 26AWG White Wire: CANL
-
-
----
-
-## 📁 File Structure
-
-| File      | Description                          |
-|-----------|--------------------------------------|
-| `bms.h`   | Header file with API and data struct |
-| `bms.c`   | Source file with CAN parsing logic   |
-
----
-
-## ⚙️ STM32 Integration Steps
-
-1. **Enable CAN** in STM32CubeMX (1 Mbps)
-2. **Copy `bms.h` and `bms.c`** into your project
-3. **Initialize and start** CAN in `main.c`
-4. Call `BMS_Update()` regularly inside your main loop
-5. Use `BMS_GetData()` to access live battery data
-
----
-
-## 🔧 API Reference
-
-### `void BMS_Update(FDCAN_HandleTypeDef *hfdcan);`
-
-Polls and processes a CAN message from the battery (non-blocking).
-
-- **Parameters**:
-  - `hfdcan`: Pointer to your active FDCAN handle (e.g., `&hfdcan1`)
-- **Effect**:
-  - Processes one message from FIFO0 (if available)
-  - Updates internal battery data
-  - Updates `last_update_ms` with current time
-
----
-
-### `BatteryMsg* BMS_GetData(void);`
-
-Returns a pointer to the most recent battery data.
-
-- **Returns**: `BatteryMsg*` — pointer to internal struct with latest values
-
----
-
-### `extern uint32_t last_update_ms;`
-
-Global variable tracking the time (in milliseconds) when the last CAN message was processed.
 
 ---
 
@@ -125,12 +91,47 @@ Each CAN message from the battery includes:
   - Divide by **1000** to get **volts (V)**
   ---
 
-## 🚀 How to Use This Library
+## 🔧 API Reference
 
-To integrate the BMS library into your STM32 project, simply call the following two functions in your main loop 
+### `void BMS_Update(FDCAN_HandleTypeDef *hfdcan);`
 
-```c
-BMS_Update(&hfdcan1);                    // Update internal battery data from CAN frame
-BatteryMsg* data = BMS_GetData();        // Access the latest battery data
+Polls and processes a CAN message from the battery (non-blocking).
 
-  
+- **Parameters**:
+  - `hfdcan`: Pointer to your active FDCAN handle (e.g., `&hfdcan1`)
+- **Effect**:
+  - Processes one message from FIFO0 (if available)
+  - Updates internal battery data
+  - Updates `last_update_ms` with current time
+
+---
+
+### `BatteryMsg* BMS_GetData(void);`
+
+Returns a pointer to the most recent battery data.
+
+- **Returns**: `BatteryMsg*` — pointer to internal struct with latest values
+
+---
+
+### `extern uint32_t last_update_ms;`
+
+Global variable tracking the time (in milliseconds) when the last CAN message was processed.
+
+---
+
+## ⚙️ STM32 Integration Steps
+
+1. **Enable CAN** in STM32CubeMX (1 Mbps)
+2. **Copy `bms.h` and `bms.c`** into your project
+3. **Initialize and start** CAN in `main.c`
+4. Call `BMS_Update()` regularly inside your main loop
+5. Use `BMS_GetData()` to access live battery data
+
+---
+
+
+
+
+
+
