@@ -123,13 +123,7 @@ Each CAN message from the battery includes:
 
 - 🔋 **Cell Voltage** values are raw `uint16_t`:
   - Divide by **1000** to get **volts (V)**
-
-- 🌡️ **Temperature**:
-  - Divide by **10** to get degrees Celsius (°C)
-
-- 📉 **State of Charge (SOC)**:
-  - Divide by **100** to get **%**
- 
+  - 
   ---
 
 ## 🚀 How to Use This Library
