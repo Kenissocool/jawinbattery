@@ -38,6 +38,47 @@ BMS_Update(&hfdcan1);                    // Update internal battery data from CA
 BatteryMsg* data = BMS_GetData();        // Access the latest battery data
 ```
 
+## API Reference
+
+### `void BMS_Update(FDCAN_HandleTypeDef *hfdcan);`
+
+Polls and processes a CAN message from the battery (non-blocking).
+
+- **Parameters**:
+  - `hfdcan`: Pointer to your active FDCAN handle (e.g., `&hfdcan1`)
+- **Effect**:
+  - Processes one message from FIFO0 (if available)
+  - Updates internal battery data
+  - Updates `last_update_ms` with current time
+
+---
+### BatteryMsg Struct
+This structure holds the decoded battery data parsed from CAN messages:
+
+```c
+typedef struct {
+    uint16_t batterycell[18];       // Voltage of each battery cell (up to 18 cells)
+    uint16_t no_of_cell;            // Number of cells in the battery pack
+    uint16_t temp;                  // Battery temperature
+    uint16_t batterypercentage;     // State of charge (SOC) percentage
+    uint16_t sumvoltage;            // Total pack voltage
+    int32_t current;                // Calculated actual current (signed)
+} BatteryMsg;
+```
+
+### `BatteryMsg* BMS_GetData(void);`
+
+Returns a pointer to the most recent battery data.
+
+- **Returns**: `BatteryMsg*` — pointer to internal struct with latest values
+
+---
+
+### `extern uint32_t last_update_ms;`
+
+Global variable tracking the time (in milliseconds) when the last CAN message was processed.
+
+---
 ## Features
 
 - ✅ Compatible with **Jawin 18S CAN battery**
@@ -121,34 +162,7 @@ Each CAN message from the battery includes:
   ---
 
 
-## API Reference
 
-### `void BMS_Update(FDCAN_HandleTypeDef *hfdcan);`
-
-Polls and processes a CAN message from the battery (non-blocking).
-
-- **Parameters**:
-  - `hfdcan`: Pointer to your active FDCAN handle (e.g., `&hfdcan1`)
-- **Effect**:
-  - Processes one message from FIFO0 (if available)
-  - Updates internal battery data
-  - Updates `last_update_ms` with current time
-
----
-
-### `BatteryMsg* BMS_GetData(void);`
-
-Returns a pointer to the most recent battery data.
-
-- **Returns**: `BatteryMsg*` — pointer to internal struct with latest values
-
----
-
-### `extern uint32_t last_update_ms;`
-
-Global variable tracking the time (in milliseconds) when the last CAN message was processed.
-
----
 
 
 
