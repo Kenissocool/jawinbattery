@@ -10,8 +10,6 @@
 - [Hardware Setup](#hardware-setup)
 - [Battery Information](#battery-information)
 - [CAN Data Frame Format & Decoding](#can-data-frame-format--decoding)
-- [STM32 Integration Steps](#stm32-integration-steps)
-- [API Reference](#api-reference)
 
 
 ---
@@ -29,27 +27,8 @@
   2. **Copy `bms.h` and `bms.c`** into your project
   3. **Initialize and start** FDCAN in `main.c`
   4. Call `BMS_Update()` regularly inside your main loop
-  5. Use `BMS_GetData()` to access live battery data
-
-Examples
-```c
-BMS_Update(&hfdcan1);                    // Update internal battery data from CAN frame
-BatteryMsg* data = BMS_GetData();        // Access the latest battery data
-```
-
-## API Reference
-
-```c
-void BMS_Update(FDCAN_HandleTypeDef *hfdcan);
-```
-Polls and processes a CAN message from the battery (non-blocking).
-
-- **Parameters**:
-  - `hfdcan`: Pointer to your active FDCAN handle (e.g., `&hfdcan1`)
-- **Effect**:
-  - Processes one message from FIFO0 (if available)
-  - Updates internal battery data
-  - Updates `last_update_ms` with current time
+  5. Use `BMS_GetData()` to access live battery data with struct
+Here is detailed of struct data that stored from library
 ```c
 typedef struct {
     uint16_t batterycell[18];       // Voltage of each battery cell (up to 18 cells)
@@ -60,6 +39,14 @@ typedef struct {
     int32_t current;                // Calculated actual current (signed)
 } BatteryMsg;
 ```
+Examples
+```c
+BMS_Update(&hfdcan1);                    // Update internal battery data from CAN frame
+BatteryMsg* data = BMS_GetData();        // Access the latest battery data
+```
+
+C
+---
 ## Features
 
 - ✅ Compatible with **Jawin 18S CAN battery**
