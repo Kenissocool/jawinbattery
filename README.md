@@ -60,23 +60,6 @@ typedef struct {
     int32_t current;                // Calculated actual current (signed)
 } BatteryMsg;
 ```
-This structure holds the decoded battery data parsed from CAN messages:
-
-
-```c
-BatteryMsg* BMS_GetData(void);
-```
-Returns a pointer to the most recent battery data.
-
-- **Returns**: `BatteryMsg*` — pointer to internal struct with latest values
-
-
-```c
-extern uint32_t last_update_ms;
-```
-Global variable tracking the time (in milliseconds) when the last CAN message was processed.
-
----
 ## Features
 
 - ✅ Compatible with **Jawin 18S CAN battery**
