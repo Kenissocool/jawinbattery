@@ -1,7 +1,7 @@
 # STM32 BMS Library for Jawin 30000mAh 18S Battery
 
 <span style="font-size:smaller;">
-This library allows an STM32 microcontroller to interface with a <strong>Jawin 30000mAh 18S smart battery</strong> over <strong>CAN bus (1 Mbps)</strong>. It reads and decodes battery metrics such as voltage, current, temperature, SOC (state of charge), and per-cell voltages. This example is tested with stm32 g474 can node so i use FDCAN as CAN2.0B for receiving data.
+  This library allows an STM32 microcontroller to interface with a <strong>Jawin 30000mAh 18S smart battery</strong> over <strong>CAN bus (1 Mbps)</strong>. It reads and decodes battery metrics such as voltage, current, temperature, SOC (state of charge), and per-cell voltages. This example is tested with stm32 g474 can node so i use FDCAN as CAN2.0B for receiving data.
 </span>
 
 ## Table of Contents
@@ -10,73 +10,36 @@ This library allows an STM32 microcontroller to interface with a <strong>Jawin 3
 - [Hardware Setup](#hardware-setup)
 - [Battery Information](#battery-information)
 - [CAN Data Frame Format & Decoding](#can-data-frame-format--decoding)
-- [STM32 Integration Steps](#stm32-integration-steps)
-- [API Reference](#api-reference)
-
 
 ---
 ## File Structure
 
-| File      | Description                          |
-|-----------|--------------------------------------|
-| `bms.h`   | Header file with API and data struct |
-| `bms.c`   | Source file with CAN parsing logic   |
+  | File      | Description                          |
+  |-----------|--------------------------------------|
+  | `bms.h`   | Header file with API functions       |
+  | `bms.c`   | Source file with CAN parsing logic   |
 
 ---
 ## How to Use This Library
 
-1. **Enable FDCAN** in STM32CubeMX (1 Mbps)
-2. **Copy `bms.h` and `bms.c`** into your project
-3. **Initialize and start** FDCAN in `main.c`
-4. Call `BMS_Update()` regularly inside your main loop
-5. Use `BMS_GetData()` to access live battery data
+  1. **Enable FDCAN** in STM32CubeMX (1 Mbps)
+  2. **Copy `bms.h` and `bms.c`** into your project
+  3. **Initialize and start** FDCAN in `main.c`
+  4. Call `BMS_Update()` regularly inside your main loop
+  5. Use the getter functions to access live battery data
 
-To integrate the BMS library into your STM32 project, simply call the following two functions in your main loop 
+### API Example
 
 ```c
 BMS_Update(&hfdcan1);                    // Update internal battery data from CAN frame
-BatteryMsg* data = BMS_GetData();        // Access the latest battery data
+
+uint16_t cell0_voltage = BMS_GetBatteryCell(0);    // Get voltage of cell 0
+uint16_t cell_count = BMS_GetNoOfCell();           // Get number of cells
+uint16_t temperature = BMS_GetTemp();              // Get battery temperature
+uint16_t soc = BMS_GetBatteryPercentage();         // Get state of charge (%)
+uint16_t pack_voltage = BMS_GetSumVoltage();       // Get total pack voltage
+int32_t pack_current = BMS_GetCurrent();           // Get battery current
 ```
-
-## API Reference
-
-### `void BMS_Update(FDCAN_HandleTypeDef *hfdcan);`
-
-Polls and processes a CAN message from the battery (non-blocking).
-
-- **Parameters**:
-  - `hfdcan`: Pointer to your active FDCAN handle (e.g., `&hfdcan1`)
-- **Effect**:
-  - Processes one message from FIFO0 (if available)
-  - Updates internal battery data
-  - Updates `last_update_ms` with current time
-
----
-### `BatteryMsg Struct`
-This structure holds the decoded battery data parsed from CAN messages:
-
-```c
-typedef struct {
-    uint16_t batterycell[18];       // Voltage of each battery cell (up to 18 cells)
-    uint16_t no_of_cell;            // Number of cells in the battery pack
-    uint16_t temp;                  // Battery temperature
-    uint16_t batterypercentage;     // State of charge (SOC) percentage
-    uint16_t sumvoltage;            // Total pack voltage
-    int32_t current;                // Calculated actual current (signed)
-} BatteryMsg;
-```
-
-### `BatteryMsg* BMS_GetData(void);`
-
-Returns a pointer to the most recent battery data.
-
-- **Returns**: `BatteryMsg*` — pointer to internal struct with latest values
-
----
-
-### `extern uint32_t last_update_ms;`
-
-Global variable tracking the time (in milliseconds) when the last CAN message was processed.
 
 ---
 ## Features
@@ -134,22 +97,22 @@ Each CAN message from the battery includes:
 | 0x002E0943  | Always 0                       | Always 0                        | Amount of cell in battery (18s) Low byte  | Amount of cell in battery (18s) High byte  | 1st Cell Voltage Low Byte      | 1st Cell Voltage High Byte      | 2nd Cell Voltage Low Byte | 2nd Cell Voltage High Byte  |
 | 0x002E0944  | 3rd Cell Voltage Low Byte      | 3rd Cell Voltage High Byte      | 4th Cell Voltage High Byte                | 4th Cell Voltage High Byte                 | 5th Cell Voltage Low Byte      | 5th Cell Voltage High Byte      | 6th Cell Voltage Low Byte | 6th Cell Voltage High Byte  |
 | 0x002E0945  | 7th Cell Voltage Low Byte      | 7th Cell Voltage High Byte      | 8th Cell Voltage High Byte                | 8th Cell Voltage High Byte                 | 9th Cell Voltage Low Byte      | 9th Cell Voltage High Byte      | 10th Cell Voltage Low Byte | 10th Cell Voltage High Byte  |
-| 0x002E0945  | 11th Cell Voltage Low Byte      | 11th Cell Voltage High Byte      | 12th Cell Voltage High Byte                | 12th Cell Voltage High Byte                 | 13th Cell Voltage Low Byte      | 13th Cell Voltage High Byte      | 14th Cell Voltage Low Byte | 14th Cell Voltage High Byte  |
-| 0x002E0945  | 15th Cell Voltage Low Byte      | 15th Cell Voltage High Byte      | 16th Cell Voltage High Byte                | 16th Cell Voltage High Byte                 | 17th Cell Voltage Low Byte      | 17th Cell Voltage High Byte      | 18th Cell Voltage Low Byte | 18th Cell Voltage High Byte  |
+| 0x002E0946  | 11th Cell Voltage Low Byte     | 11th Cell Voltage High Byte     | 12th Cell Voltage Low Byte                | 12th Cell Voltage High Byte                | 13th Cell Voltage Low Byte     | 13th Cell Voltage High Byte     | 14th Cell Voltage Low Byte | 14th Cell Voltage High Byte  |
+| 0x002E094F  | 15th Cell Voltage Low Byte     | 15th Cell Voltage High Byte     | 16th Cell Voltage Low Byte                | 16th Cell Voltage High Byte                | 17th Cell Voltage Low Byte     | 17th Cell Voltage High Byte     | 18th Cell Voltage Low Byte | 18th Cell Voltage High Byte  |
 
 
 ###  **Remarks**
 
-- **Volage of Battery** values are raw `uint16_t`:
+- **Voltage of Battery** values are raw `uint16_t`:
   - Divide by **100** to get actual **volts (V)**
     
 - **Current** is a **signed** value:  
   - Positive → battery is **charging**  
   - Negative → battery is **discharging**
-  - Divide by **1000** to get actual **Ampare (A)**
+  - Divide by **1000** to get actual **Ampere (A)**
 
 - **Temperature** values are raw `uint16_t`:
-  - Divide by **100** to get actual **celcius (C)**
+  - Divide by **100** to get actual **celsius (C)**
 
 - **Battery Percentage** values are raw `uint16_t`:
   - Divide by **100** to get actual **percent (%)**
