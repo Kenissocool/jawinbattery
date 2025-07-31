@@ -10,21 +10,14 @@
 - [Hardware Setup](#hardware-setup)
 - [Battery Information](#battery-information)
 - [CAN Data Frame Format & Decoding](#can-data-frame-format--decoding)
-<<<<<<< HEAD
-=======
 
->>>>>>> 3ab1d0bfc3e6a54e08d014e3372e9ece08a1b695
 
 ---
 ## File Structure
 
   | File      | Description                          |
   |-----------|--------------------------------------|
-<<<<<<< HEAD
   | `bms.h`   | Header file with API functions       |
-=======
-  | `bms.h`   | Header file with API and data struct |
->>>>>>> 3ab1d0bfc3e6a54e08d014e3372e9ece08a1b695
   | `bms.c`   | Source file with CAN parsing logic   |
 
 ---
@@ -34,7 +27,6 @@
   2. **Copy `bms.h` and `bms.c`** into your project
   3. **Initialize and start** FDCAN in `main.c`
   4. Call `BMS_Update()` regularly inside your main loop
-<<<<<<< HEAD
   5. Use the getter functions to access live battery data
 
 ### API Example
@@ -50,27 +42,6 @@ uint16_t pack_voltage = BMS_GetSumVoltage();       // Get total pack voltage
 int32_t pack_current = BMS_GetCurrent();           // Get battery current
 ```
 
-=======
-  5. Use `BMS_GetData()` to access live battery data with struct
-Here is detailed of struct data that stored from library
-```c
-typedef struct {
-    uint16_t batterycell[18];       // Voltage of each battery cell (up to 18 cells)
-    uint16_t no_of_cell;            // Number of cells in the battery pack
-    uint16_t temp;                  // Battery temperature
-    uint16_t batterypercentage;     // State of charge (SOC) percentage
-    uint16_t sumvoltage;            // Total pack voltage
-    int32_t current;                // Calculated actual current (signed)
-} BatteryMsg;
-```
-Examples
-```c
-BMS_Update(&hfdcan1);                    // Update internal battery data from CAN frame
-BatteryMsg* data = BMS_GetData();        // Access the latest battery data
-```
-
-C
->>>>>>> 3ab1d0bfc3e6a54e08d014e3372e9ece08a1b695
 ---
 ## Features
 
@@ -125,17 +96,10 @@ Each CAN message from the battery includes:
 | 0x002E0951  | Unknown Low Byte               | Unknown High Byte               | Voltage of Battery Low Byte               | Voltage of Battery High Byte               | Current Low Byte               | Current High Byte               | Unknow Low Byte           | Unknown High Byte           |
 | 0x002E0942  | Battery Temperature Low Byte   | Battery Temperature High Byte   | Always 0x04                               | Always 0x01                                | Battery Percentage Low byte    | Battery Percentage High Byte    | Always 0                  | Always 0                    |
 | 0x002E0943  | Always 0                       | Always 0                        | Amount of cell in battery (18s) Low byte  | Amount of cell in battery (18s) High byte  | 1st Cell Voltage Low Byte      | 1st Cell Voltage High Byte      | 2nd Cell Voltage Low Byte | 2nd Cell Voltage High Byte  |
-<<<<<<< HEAD
 | 0x002E0944  | 3rd Cell Voltage Low Byte      | 3rd Cell Voltage High Byte      | 4th Cell Voltage High Byte                | 4th Cell Voltage High Byte                 | 5th Cell Voltage Low Byte      | 5th Cell Voltage High Byte      | 6th Cell Voltage Low Byte | 6th Cell Voltage High Byte  |
 | 0x002E0945  | 7th Cell Voltage Low Byte      | 7th Cell Voltage High Byte      | 8th Cell Voltage High Byte                | 8th Cell Voltage High Byte                 | 9th Cell Voltage Low Byte      | 9th Cell Voltage High Byte      | 10th Cell Voltage Low Byte | 10th Cell Voltage High Byte  |
 | 0x002E0946  | 11th Cell Voltage Low Byte     | 11th Cell Voltage High Byte     | 12th Cell Voltage Low Byte                | 12th Cell Voltage High Byte                | 13th Cell Voltage Low Byte     | 13th Cell Voltage High Byte     | 14th Cell Voltage Low Byte | 14th Cell Voltage High Byte  |
 | 0x002E094F  | 15th Cell Voltage Low Byte     | 15th Cell Voltage High Byte     | 16th Cell Voltage Low Byte                | 16th Cell Voltage High Byte                | 17th Cell Voltage Low Byte     | 17th Cell Voltage High Byte     | 18th Cell Voltage Low Byte | 18th Cell Voltage High Byte  |
-=======
-| 0x002E0944  | 3rd Cell Voltage Low Byte      | 3rd Cell Voltage High Byte      | 4th Cell Voltage Low Byte                | 4th Cell Voltage High Byte                 | 5th Cell Voltage Low Byte      | 5th Cell Voltage High Byte      | 6th Cell Voltage Low Byte | 6th Cell Voltage High Byte  |
-| 0x002E0945  | 7th Cell Voltage Low Byte      | 7th Cell Voltage High Byte      | 8th Cell Voltage Low Byte                | 8th Cell Voltage High Byte                 | 9th Cell Voltage Low Byte      | 9th Cell Voltage High Byte      | 10th Cell Voltage Low Byte | 10th Cell Voltage High Byte  |
-| 0x002E0946  | 11th Cell Voltage Low Byte      | 11th Cell Voltage High Byte      | 12th Cell Voltage Low Byte                | 12th Cell Voltage High Byte                 | 13th Cell Voltage Low Byte      | 13th Cell Voltage High Byte      | 14th Cell Voltage Low Byte | 14th Cell Voltage High Byte  |
-| 0x002E094F  | 15th Cell Voltage Low Byte      | 15th Cell Voltage High Byte      | 16th Cell Voltage Low Byte                | 16th Cell Voltage High Byte                 | 17th Cell Voltage Low Byte      | 17th Cell Voltage High Byte      | 18th Cell Voltage Low Byte | 18th Cell Voltage High Byte  |
->>>>>>> 3ab1d0bfc3e6a54e08d014e3372e9ece08a1b695
 
 
 ###  **Remarks**
