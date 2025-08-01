@@ -67,6 +67,16 @@ int32_t pack_current = BMS_GetCurrent();           // Get battery current
 
 ---
 
+## STM32CubeMX IOC Example
+
+Below is a screenshot of the FDCAN configuration in STM32CubeMX for reference:
+
+![STM32CubeMX FDCAN IOC Example](images/bms_ioc_ss.png)
+
+*Make sure your settings match the screenshot for correct CAN communication.*
+
+---
+
 ## Battery information
 
 - **Name**: Jawin 30000mAh 18S smart battery 
