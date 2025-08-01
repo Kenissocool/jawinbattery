@@ -72,6 +72,7 @@ int32_t pack_current = BMS_GetCurrent();           // Get battery current
 Below is a screenshot of the FDCAN configuration in STM32CubeMX for reference:
 
 ![STM32CubeMX FDCAN IOC Example](image/bms_ioc_ss.png)
+![STM32CubeMX FDCAN Clock Example](image/bms_clk_ss.png)
 
 *Make sure your settings match the screenshot for correct CAN communication.*
 
